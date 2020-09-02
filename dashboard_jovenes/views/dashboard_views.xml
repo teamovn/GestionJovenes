@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+      <menuitem id="dashboard_menu_root" name="Dashboard y Reportes" groups="jovenes.young_group_admin,jovenes.young_group_user,jovenes.young_group_con" sequence="2"/>
+
+     <act_window id="action_young_cv_graph" name="Graficos de Gestión Hojas de Vida" res_model="young.curriculum.vitae" view_mode="graph,pivot"/>
+
+      <menuitem id="menu_dash_root"
+          name="Dashboard"
+          parent="dashboard_menu_root"
+          groups="jovenes.young_group_admin,jovenes.young_group_user,jovenes.young_group_con"
+          sequence="1"/>
+
+      <record id="action_dashboard_young" model="ir.actions.client">
+          <field name="name">Dashboard Jovenes</field>
+          <field name="tag">dashboard_young</field>
+      </record>
+
+      <menuitem name="Dashboard Jovenes" id="dashboard_young" parent="menu_dash_root"
+                sequence="1"
+                groups="jovenes.young_group_admin,jovenes.young_group_user,jovenes.young_group_con"
+                action="action_dashboard_young"/>
+
+      <menuitem id="menu_reports_root"
+                name="Reportes"
+                parent="dashboard_menu_root"
+                groups="jovenes.young_group_admin,jovenes.young_group_user,jovenes.young_group_con"
+                sequence="2"/>
+
+      <menuitem id="menu_graph_root"
+                name="Graficos"
+                parent="dashboard_menu_root"
+                groups="jovenes.young_group_admin,jovenes.young_group_user,jovenes.young_group_con"
+                sequence="3"/>
+
+      <menuitem name="Graficos Jovenes" id="graph_young" parent="menu_graph_root"
+                sequence="1"
+                groups="jovenes.young_group_admin,jovenes.young_group_user,jovenes.young_group_con"
+                action="action_young_cv_graph"/>
+
+
+    </data>
+
+    <template id="assets_backend_dashboard_jovenes" name="Dashboard" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/dashboard_jovenes/static/src/js/pos_dashboard.js"/>
+            <link rel="stylesheet" href="/dashboard_jovenes/static/src/css/pos_dashboard.css"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+        </xpath>
+    </template>
+</odoo>
