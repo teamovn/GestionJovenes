@@ -41,11 +41,11 @@
                                     <div class="oh-card" style="width: 350px;">
                                         <div class="oh-card-body">
                                             <div class="stat-widget-one">
-                                                <div class="stat-icon" style="background:#85d05b"><i class="fa fa-shopping-cart"/></div>
+                                                <div class="stat-icon" style="background:#85d05b"><i class="fa fa-signal"/></div>
                                                 <!--                                                <div class="stat-icon" style="width:150px;background:##85d05b"><t t-esc="widget.total_sale"/></div>-->
                                                 <div class="stat-content">
-                                                    <div class="stat-head">Total Sales</div>
-                                                    <div class="stat_count"><t t-esc="widget.total_sale"/></div>
+                                                    <div class="stat-head">Total Young</div>
+                                                    <div class="stat_count"><t t-esc="widget.total_young"/></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -57,8 +57,8 @@
                                                     <div class="stat-widget-one">
                                                         <div class="stat-icon" style="background:#d05bb8"><i class="fa fa-signal"/></div>
                                                         <div class="stat-content">
-                                                            <div class="stat-head">Sessions</div>
-                                                            <div class="stat_count"><t t-esc="widget.total_session"/></div>
+                                                            <div class="stat-head">Total Job</div>
+                                                            <div class="stat_count"><t t-esc="widget.total_job"/></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -175,7 +175,7 @@
                                 <div class="media">
                                 <div class="media-body">
                                     <table class="table table-sm">
-                                        <thead>
+                                        <thead>total
                                             <tr>
                                                 <th rowspan="12">Name&#160;&#160;&#160;</th>
                                                 <th rowspan="12">orders</th>
@@ -218,7 +218,7 @@
                         <div class="col-sm-12 col-lg-12" style="padding:0;">
                                 <div class="text-color">
                                     <div class="">
-                                    <div class="media">
+                                    <div class="media">total
                                     <div class="media-body">
                                         <table class="table table-sm">
                                             <thead>

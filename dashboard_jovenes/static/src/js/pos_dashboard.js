@@ -28,8 +28,8 @@ var YoungDashboard = AbstractAction.extend({
         this.payment_details = [];
         this.top_salesperson = [];
         this.selling_product = [];
-        this.total_sale = [];
-        this.total_order_count = [];
+        this.total_young = [];
+        this.total_jobt = [];
         this.total_refund_count = [];
         this.total_session = [];
         this.today_refund_total = [];
@@ -59,9 +59,9 @@ var YoungDashboard = AbstractAction.extend({
               model: 'young.curriculum.vitae',
               method: 'total_young',
       }).then(function(result) {
-         self.total_sale = result['total_young'],
+         self.total_young = result['total_young'],
          self.today_sale = result['total_young'],
-         self.total_order_count = result['total_order_count']
+         self.total_job = result['total_job']
          self.total_refund_count = result['total_refund_count']
          self.total_session = result['total_session']
          self.today_refund_total = result['today_refund_total']
@@ -390,7 +390,7 @@ var YoungDashboard = AbstractAction.extend({
         var ctx = self.$(".top_selling_product");
             rpc.query({
                 model: "young.curriculum.vitae",
-                method: "", // get_the_top_products
+                method: "get_categories", // get_the_top_products
             }).then(function (arrays) {
 
 
@@ -398,7 +398,7 @@ var YoungDashboard = AbstractAction.extend({
             labels: arrays[1],
             datasets: [
               {
-                label: "Quantity",
+                label: "Cantidad de Jovenes",
                 data: arrays[0],
                 backgroundColor: [
                   "rgba(255, 99, 132,1)",
@@ -426,7 +426,7 @@ var YoungDashboard = AbstractAction.extend({
             title: {
               display: true,
               position: "top",
-              text: " Top products",
+              text: " Categorias",
               fontSize: 18,
               fontColor: "#111"
             },
