@@ -56,6 +56,10 @@ class YoungDashboard(models.Model):
         cr.execute(query_f)
         f = cr.fetchall()
 
+        query_no = """select count(*)from young_curriculum_vitae where cat_list = 'no category' """
+        cr.execute(query_no)
+        no_category = cr.fetchall()
+
 
         return {'total_young': total_young,
                 'total_job': total_job,
@@ -66,7 +70,10 @@ class YoungDashboard(models.Model):
                 'category_b': b[0][0],
                 'category_c': c[0][0],
                 'category_d': d[0][0],
-                'category_f': f[0][0] }
+                'category_e': e[0][0],
+                'category_f': f[0][0],
+                'no_category':no_category[0][0]}
+
 
     @api.model
     def get_categories(self):
@@ -87,16 +94,69 @@ class YoungDashboard(models.Model):
         cr.execute(query_d)
         d = cr.fetchall()
 
-        query_g = """select count(*)from young_curriculum_vitae where cat_list = 'G' """
-        cr.execute(query_g)
+        query_e = """select count(*)from young_curriculum_vitae where cat_list = 'E' """
+        cr.execute(query_e)
+        e = cr.fetchall()
+
+        query_f = """select count(*)from young_curriculum_vitae where cat_list = 'F' """
+        cr.execute(query_f)
         f = cr.fetchall()
 
-        category = ['category_a','category_b','category_c','category_d',\
-                    'category_g']
+        query_g = """select count(*)from young_curriculum_vitae where cat_list = 'G' """
+        cr.execute(query_g)
+        g = cr.fetchall()
 
-        total = [a[0][0],b[0][0],c[0][0],d[0][0],f[0][0]]
+        query_no = """select count(*)from young_curriculum_vitae where cat_list = 'no category' """
+        cr.execute(query_no)
+        no_category = cr.fetchall()
+
+        category = ['A','B','C','D','E','F','G','Sin Categoria']
+
+        total = [a[0][0],b[0][0],c[0][0],d[0][0],e[0][0],f[0][0],g[0][0],\
+                 no_category[0][0]]
 
         final = [total, category]
+        return final
+
+
+    @api.model
+    def get_gender(self):
+        cr = self._cr
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'male' """)
+        male = cr.fetchall()
+
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'female' """)
+        female = cr.fetchall()
+
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'other' """)
+        other = cr.fetchall()
+
+        gender = ['Masculino','Femenino','Otros']
+
+        total = [male[0][0],female[0][0],other[0][0]]
+
+        final = [total, gender]
+        return final
+
+    @api.model
+    def get_other_graph(self):
+        label = 'Jovenes'
+
+        cr = self._cr
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'male' """)
+        male = cr.fetchall()
+
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'female' """)
+        female = cr.fetchall()
+
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'other' """)
+        other = cr.fetchall()
+
+        gender = ['Masculino','Femenino','Otros']
+
+        total = [male[0][0],female[0][0],other[0][0]]
+
+        final = [total, gender, label]
         return final
 
     @api.model
@@ -106,8 +166,7 @@ class YoungDashboard(models.Model):
         unemp = cr.fetchall()
 
 
-        return {
-             'total_sale': unemp[0][0],
+        return {'total_sale': unemp[0][0],
              'total_order_count': 0,
              'total_refund_count': 0,
              'total_session': 0,

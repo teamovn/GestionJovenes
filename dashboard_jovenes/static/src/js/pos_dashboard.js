@@ -19,12 +19,12 @@ var YoungDashboard = AbstractAction.extend({
             'click .pos_session':'pos_session',
             'click .pos_refund_orders':'pos_refund_orders',
             'click .pos_refund_today_orders':'pos_refund_today_orders',
-            'change #pos_sales': 'onclick_pos_sales',
+            //'change #pos_sales': 'onclick_pos_sales',
     },
 
     init: function(parent, context) {
         this._super(parent, context);
-        this.dashboards_templates = ['PosOrders','PosChart','PosCustomer'];
+        this.dashboards_templates = ['PosOrders','PosChart'];//,'PosCustomer'];
         this.total_young = [];
         this.total_job = [];
         this.job_category = [];
@@ -36,6 +36,7 @@ var YoungDashboard = AbstractAction.extend({
         this.category_d = [];
         this.category_e = [];
         this.category_f = [];
+        this.no_category =[];
     },
 
     willStart: function() {
@@ -62,17 +63,17 @@ var YoungDashboard = AbstractAction.extend({
               method: 'total_young',
       }).then(function(result) {
          self.total_young = result['total_young'],
-         self.total_young = result['total_young'],
          self.total_job = result['total_job']
          self.job_category = result['job_category']
          self.back_study = result['back_study']
          self.entrepreneurship = result['entrepreneurship']
          self.category_a = result['category_a']
-         self.category_a = result['category_b']
-         self.category_a = result['category_c']
-         self.category_a = result['category_d']
-         self.category_a = result['category_e']
-         self.category_a = result['category_f']
+         self.category_b = result['category_b']
+         self.category_c = result['category_c']
+         self.category_d = result['category_d']
+         self.category_e = result['category_e']
+         self.category_f = result['category_f']
+         self.no_category = result['no_category']
       });
       //var def2 = self._rpc({
       //      model: "young.curriculum.vitae",
@@ -97,6 +98,7 @@ var YoungDashboard = AbstractAction.extend({
          self.render_top_customer_graph();
          self.render_top_product_graph();
          self.render_product_category_graph();
+         self.onclick_pos_sales();
     },
 
 
@@ -242,46 +244,17 @@ var YoungDashboard = AbstractAction.extend({
         });
 
     },
-
-     onclick_pos_sales:function(events){
-        var option = $(events.target).val();
-        console.log('came monthly')
+ //grafico de barras vertical
+     onclick_pos_sales:function(){ //(events)
+        // var option = $(events.target).val();
+        // console.log('came monthly')
        var self = this
-        var ctx = self.$("#canvas_1");
+        var ctx = self.$(".other_graph");
             rpc.query({
                 model: "young.curriculum.vitae",
-                method: "", // get_department
-                args: [option],
-            }).then(function (arr    @api.model
-    def get_categories(self):
-        cr = self._cr
-        query_a = """select count(*)from young_curriculum_vitae where cat_list = 'A' """
-        cr.execute(query_a)
-        a = cr.fetchall()
-
-        query_b = """select count(*)from young_curriculum_vitae where cat_list = 'B' """
-        cr.execute(query_b)
-        b = cr.fetchall()
-
-        query_c = """select count(*)from young_curriculum_vitae where cat_list = 'C' """
-        cr.execute(query_c)
-        c = cr.fetchall()
-
-        query_d = """select count(*)from young_curriculum_vitae where cat_list = 'D' """
-        cr.execute(query_d)
-        d = cr.fetchall()
-
-        query_g = """select count(*)from young_curriculum_vitae where cat_list = 'G' """
-        cr.execute(query_g)
-        f = cr.fetchall()
-
-        category = ['category_a','category_b','category_c','category_d',\
-                    'category_g']
-
-        total = [a[0][0],b[0][0],c[0][0],d[0][0],f[0][0]]
-
-        final = [total, category]
-        return finalays) {
+                method: "get_other_graph", // get_department
+                //args: [option],
+            }).then(function (arrays) {
             console.log(arrays)
           var data = {
             labels: arrays[1],
@@ -315,7 +288,7 @@ var YoungDashboard = AbstractAction.extend({
             title: {
               display: true,
               position: "top",
-              text: "SALE DETAILS",
+              text: "Generos de los Jovenes",
               fontSize: 18,
               fontColor: "#111"
             },
@@ -355,7 +328,7 @@ var YoungDashboard = AbstractAction.extend({
         var ctx = self.$(".top_customer");
             rpc.query({
                 model: "young.curriculum.vitae",
-                method: "", // get_the_top_customer
+                method: "get_gender", // get_the_top_customer
             }).then(function (arrays) {
 
 
@@ -391,7 +364,7 @@ var YoungDashboard = AbstractAction.extend({
             title: {
               display: true,
               position: "top",
-              text: " Top Customer",
+              text: " Grafico Generos Circular",
               fontSize: 18,
               fontColor: "#111"
             },
@@ -442,14 +415,21 @@ var YoungDashboard = AbstractAction.extend({
                   "rgba(54, 162, 235,1)",
                   "rgba(75, 192, 192,1)",
                   "rgba(153, 102, 255,1)",
-                  "rgba(10,20,30,1)"
+                  "rgba(10,20,30,1)",
+                  "rgba(255,125,0,1)",
+                  "rgba(0, 255, 0, 1)",
+                  "rgba(200,0,0,0.5)",
                 ],
                 borderColor: [
                  "rgba(255, 99, 132, 0.2)",
                   "rgba(54, 162, 235, 0.2)",
                   "rgba(75, 192, 192, 0.2)",
                   "rgba(153, 102, 255, 0.2)",
-                  "rgba(10,20,30,0.3)"
+                  "rgba(10,20,30,0.3)",
+                  "rgba(255,125,0,0.4)",
+                  "rgba(0, 255, 0, 0.2)",
+                  "rgba(200,0,0,0.2)",
+
                 ],
                 borderWidth: 1
               },
@@ -499,7 +479,7 @@ var YoungDashboard = AbstractAction.extend({
         var ctx = self.$(".top_product_categories");
             rpc.query({
                 model: "young.curriculum.vitae",
-                method: "", // get_the_top_categories
+                method: "get_gender", // get_the_top_categories
             }).then(function (arrays) {
 
 
@@ -507,21 +487,17 @@ var YoungDashboard = AbstractAction.extend({
             labels: arrays[1],
             datasets: [
               {
-                label: "Quantity",
+                label: "Cantidad de Jovenes",
                 data: arrays[0],
                 backgroundColor: [
-                  "rgba(255, 99, 132,1)",
                   "rgba(54, 162, 235,1)",
+                  "rgba(255, 99, 132,1)",
                   "rgba(75, 192, 192,1)",
-                  "rgba(153, 102, 255,1)",
-                  "rgba(10,20,30,1)"
                 ],
                 borderColor: [
+                 "rgba(54, 162, 235, 0.2)",
                  "rgba(255, 99, 132, 0.2)",
-                  "rgba(54, 162, 235, 0.2)",
-                  "rgba(75, 192, 192, 0.2)",
-                  "rgba(153, 102, 255, 0.2)",
-                  "rgba(10,20,30,0.3)"
+                 "rgba(75, 192, 192, 0.2)",
                 ],
                 borderWidth: 1
               },
@@ -536,7 +512,7 @@ var YoungDashboard = AbstractAction.extend({
             title: {
               display: true,
               position: "top",
-              text: " Top product categories",
+              text: "Generos",
               fontSize: 18,
               fontColor: "#111"
             },
