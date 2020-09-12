@@ -156,6 +156,8 @@ class YoungDashboard(models.Model):
 
         total = [male[0][0],female[0][0],other[0][0]]
 
+        other_data = []
+
         final = [total, gender, label]
         return final
 
@@ -181,3 +183,10 @@ class YoungDashboard(models.Model):
         placement = cr.fetchall()
 
         return {'total_placement':placement[0][0]}
+
+class DashboardTracing(models.Model):
+    _inherit = 'young.tracing'
+
+
+class DashboardInsertion(models.Model):
+    _inherit = 'young.insertion'
