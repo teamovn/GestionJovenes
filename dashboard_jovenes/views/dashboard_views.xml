@@ -17,8 +17,8 @@
             <field name="arch" type="xml">
               <pivot>
                 <!-- type="col" iterval="week" type="measure"-->
-                <!--<field name="name"/>
-                <field name="city_id"/>
+                <field name="name" type="row"/>
+                <!--<field name="city_id"/>
                 <field name="locality_id"/>
                 <field name="address"/>
                 <field name="birthday_date"/>
@@ -48,18 +48,18 @@
                                <field name="formation"/>
                                <field name="skills"/>
                                <field name="technical_skills"/>
-                               <field name="references"/>-->
+                               <field name="references"/>
                                <field name="educations"/>
                                <field name="insertion"/>
                                <field name="tracing"/>
-                <!--               <field name="insertion_compute"/>
+                               <field name="insertion_compute"/>
                                <field name="month"/>
                                <field name="count_days"/>-->
               </pivot>
             </field>
         </record>
 
-     <act_window id="action_young_cv_graph" name="Graficos de Gestión Hojas de Vida" res_model="young.curriculum.vitae" view_mode="graph,pivot"/>
+     <act_window id="action_young_cv_graph" name="Graficos de Gestión Hojas de Vida" res_model="young.curriculum.vitae" view_mode="pivot,graph"/>
 
       <menuitem id="menu_dash_root"
           name="Dashboard"
@@ -108,13 +108,13 @@
                       <field name="model">young.insertion</field>
                       <field name="arch" type="xml">
                         <pivot>
-                          <field name="cv_id"/>
+                          <field name="cv_id" type="row"/>
                           <!-- type="col" iterval="week" type="measure"-->
                         </pivot>
                       </field>
                   </record>
 
-               <act_window id="action_young_insertion_graph" name="Graficos de Insercion" res_model="young.insertion" view_mode="graph,pivot"/>
+               <act_window id="action_young_insertion_graph" name="Graficos de Insercion" res_model="young.insertion" view_mode="pivot,graph"/>
 
                <menuitem name="Grafico Insercion" id="graph_insertion" parent="menu_graph_root"
                          sequence="2"
@@ -135,13 +135,13 @@
                                <field name="model">young.tracing</field>
                                <field name="arch" type="xml">
                                  <pivot>
-                                   <field name="cv_id"/>
+                                   <field name="cv_id" type="row"/>
                                    <!-- type="col" iterval="week" type="measure"-->
                                  </pivot>
                                </field>
                            </record>
 
-                        <act_window id="action_young_tracing_graph" name="Graficos de Seguimiento" res_model="young.tracing" view_mode="graph,pivot"/>
+                        <act_window id="action_young_tracing_graph" name="Graficos de Seguimiento" res_model="young.tracing" view_mode="pivot,graph"/>
 
                         <menuitem name="Grafico Seguimiento" id="graph_tracing" parent="menu_graph_root"
                                   sequence="2"
