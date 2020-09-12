@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="YoungDashboard">
+        <div class="oh_dashboards">
+            <div class="container-fluid o_young_dashboard">
+            </div>
+        </div>
+    </t>
+    <t t-name="PosOrders">
+        <div class="row main-section">
+            <div class="col-md-4 col-sm-6 pos_order_today oh-payslip">
+                        <div class="oh-card" style="width: 288px;">
+                            <div class="oh-card-body">
+                                <div class="stat-widget-one">
+<!--                                    <div class="stat-icon" style="background:#5bcbd0"><t t-esc="widget.today_sale"/></div>-->
+                                    <!--INICIO DE TARJETAS-->
+                                    <div class="stat-icon" style="background:#5bcbd0"><i class="fa fa-shopping-bag"/></div>
+                                    <div class="stat-content">
+                                        <div class="stat-head">Formados-Fase 2</div>
+                                        <div class="stat_count"><t t-esc="widget.total_young"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <div class="col-md-4 col-sm-6 pos_order oh-payslip">
+                                    <div class="oh-card" style="width: 288px;">
+                                        <div class="oh-card-body">
+                                            <div class="stat-widget-one">
+<!--                                                <div class="stat-icon" style="background:#645bd0"><t t-esc="widget.total_order_count"/></div>-->
+                                                <div class="stat-icon" style="background:#645bd0"><i class="fa fa-shopping-bag"/></div>
+                                                <div class="stat-content">
+                                                    <div class="stat-head">Empleo Obtenido</div>
+                                                    <div class="stat_count"><t t-esc="widget.total_job"/></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            <div class="col-md-4 col-sm-6 pos_total_sales oh-payslip">
+                                    <div class="oh-card" style="width: 350px;">
+                                        <div class="oh-card-body">
+                                            <div class="stat-widget-one">
+                                                <div class="stat-icon" style="background:#85d05b"><i class="fa fa-shopping-cart"/></div>
+                                                <!--                                                <div class="stat-icon" style="width:150px;background:##85d05b"><t t-esc="widget.total_sale"/></div>-->
+                                                <div class="stat-content">
+                                                    <div class="stat-head">Insercion Laboral</div>
+                                                    <div class="stat_count"><t t-esc="widget.job_category"/></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            <div class="col-md-4 col-sm-6 pos_total_sales oh-payslip">
+                                    <div class="oh-card" style="width: 350px;">
+                                        <div class="oh-card-body">
+                                            <div class="stat-widget-one">
+                                                <div class="stat-icon" style="background:#85d05b"><i class="fa fa-shopping-cart"/></div>
+                                                <!--                                                <div class="stat-icon" style="width:150px;background:##85d05b"><t t-esc="widget.total_sale"/></div>-->
+                                                <div class="stat-content">
+                                                    <div class="stat-head">Categoria Empleo</div>
+                                                    <div class="stat_count"><t t-esc="widget.em_cat"/></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            <div class="col-md-4 col-sm-6 pos_session oh-payslip">
+                                            <div class="oh-card" style="width: 288px;">
+                                                <div class="oh-card-body">
+                                                    <div class="stat-widget-one">
+                                                        <div class="stat-icon" style="background:#d05bb8"><i class="fa fa-signal"/></div>
+                                                        <div class="stat-content">
+                                                            <div class="stat-head">Regreso al Estudio</div>
+                                                            <div class="stat_count"><t t-esc="widget.category_e"/></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+
+            <div class="col-md-4 col-sm-6 pos_refund_orders oh-payslip">
+                                    <div class="oh-card" style="width: 288px;">
+                                        <div class="oh-card-body">
+                                            <div class="stat-widget-one">
+                                                <div class="stat-icon" style="background:#d0c35b"><i class="fa fa-minus-circle"/></div>
+                                                <div class="stat-content">
+                                                    <div class="stat-head">Emprendimiento</div>
+                                                    <div class="stat_count"><t t-esc="widget.category_f"/></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            <div class="col-md-4 col-sm-6 pos_refund_today_orders oh-payslip">
+                                    <div class="oh-card" style="width: 400px;">
+                                        <div class="oh-card-body">
+                                            <div class="stat-widget-one">
+                                                <div class="stat-icon" style="background:#5b8ed0"><i class="fa fa-minus-circle"/></div>
+                                                <div class="stat-content">
+                                                    <div class="stat-head">Balance NO Empleo Obtenido</div>
+                                                    <div class="stat_count"><t t-esc="widget.desem_total"/></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            
+            
+            </div>
+        </t>
+        <!--FIN DE TARJETAS-->
+
+        <!--INICIO DE GRAFICO CIRCULAR-->
+    <t t-name="PosChart">
+        <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+            <div class="row" style="margin:0px;">
+                <div class="col-sm-6 col-lg-6  top_customer_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                        </div>
+                        <canvas class="top_customer" width="200" height="120"/>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6  selling_product_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                        </div>
+                        <canvas class="top_selling_product" width="200" height="120"/>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6  selling_product_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                        </div>
+                        <canvas class="top_product_categories" width="200" height="120"/>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6  selling_product_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                        </div>
+                        <canvas class="other_graph" width="200" height="120"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </t>
+
+</templates>
