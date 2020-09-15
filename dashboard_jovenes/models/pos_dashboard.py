@@ -3,6 +3,7 @@
 import pytz
 from odoo import models, fields, api
 from datetime import timedelta, datetime, date
+import numpy,base64
 
 
 class YoungDashboard(models.Model):
@@ -258,6 +259,66 @@ class YoungDashboard(models.Model):
         final = [total, gender, label, total2]
         return final
 
+    @api.model
+    def generate_mail(self):
+        data_cv = []
+        data_insert = []
+        data_trac = []
 
+        cv = self.env['young.curriculum.vitae'].search([])
+        insert = cv = self.env['young.insertion'].search([])
+        trac = self.env['young.tracing'].search([]) #domain [('state','=','sale')]
 
-         
+        for young in cv:
+            data_cv.append([young.name,young.id])
+
+        for ins in insert:
+            data_insert.append([ins.name,ins.id])
+
+        for tra in trac:
+            data_trac.append([tra.name,tra.id])
+
+        arr_cv = numpy.asarray(data_cv)
+        arr_insert = numpy.asarray(data_insert)
+        arr_tracing = numpy.asarray(data_trac)
+
+        numpy.savetxt('/tmp/file_cv.csv', arr_cv, delimiter=";",newline="\n", fmt="%s")
+        numpy.savetxt('/tmp/file_insert.csv', arr_insert, delimiter=";",newline="\n", fmt="%s")
+        numpy.savetxt('/tmp/file_tracing.csv', arr_tracing, delimiter=";",newline="\n", fmt="%s")
+
+        with open("/tmp/file_cv.csv","rb") as file_cv:
+            encoded =  base64.b64encode(file_cv.read())
+
+            att_cv = self.env['ir.attachment'].sudo().create({
+                'db_datas': encoded,
+                'store_fname': 'archivo_cv.csv',
+                'name':'archivo_cv'
+            })
+
+        with open("/tmp/file_insert.csv","rb") as file_insert:
+            encoded =  base64.b64encode(file_insert.read())
+
+            att_insert = self.env['ir.attachment'].sudo().create({
+                'db_datas': encoded,
+                'store_fname': 'archivo_insert.csv',
+                'name':'archivo_insert'
+            })
+
+        with open("/tmp/file_tracing.csv","rb") as file_tracing:
+            encoded =  base64.b64encode(file_tracing.read())
+
+            att_tracing = self.env['ir.attachment'].sudo().create({
+                'db_datas': encoded,
+                'store_fname': 'archivo_tracing.csv',
+                'name':'archivo_tracing'
+            })
+
+        mail_values = {
+              'subject': 'CSV',
+              'body_html': 'CSV',
+              'email_to': 'jnicolielly@gmail.com;palmav916@gmail.com;oscar.lopezmorel@gmail.com',
+              'email_from':'jnicolielly@gmail.com',
+              'attachment_ids': [(6, 0, [att_cv.id,att_insert.id,att_tracing.id])]
+            }
+
+        self.env['mail.mail'].sudo().create(mail_values).send()
