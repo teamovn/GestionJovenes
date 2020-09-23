@@ -265,6 +265,10 @@ class YoungDashboard(models.Model):
         data_insert = []
         data_trac = []
 
+        cr = self._cr
+        cr.execute(""" select * from young_curriculum_vitae where gender = 'female' """)
+        cv_query = cr.fetchall()
+
         cv = self.env['young.curriculum.vitae'].search([])
         insert = cv = self.env['young.insertion'].search([])
         trac = self.env['young.tracing'].search([]) #domain [('state','=','sale')]
@@ -290,27 +294,33 @@ class YoungDashboard(models.Model):
             encoded =  base64.b64encode(file_cv.read())
 
             att_cv = self.env['ir.attachment'].sudo().create({
-                'db_datas': encoded,
+                'datas': encoded,
+                'type': 'binary',
+                'mimetype': 'text/csv',
                 'store_fname': 'archivo_cv.csv',
-                'name':'archivo_cv'
+                'name':'archivo_cv.csv'
             })
 
         with open("/tmp/file_insert.csv","rb") as file_insert:
             encoded =  base64.b64encode(file_insert.read())
 
             att_insert = self.env['ir.attachment'].sudo().create({
-                'db_datas': encoded,
+                'datas': encoded,
+                'type': 'binary',
+                'mimetype': 'text/csv',
                 'store_fname': 'archivo_insert.csv',
-                'name':'archivo_insert'
+                'name':'archivo_insert.csv'
             })
 
         with open("/tmp/file_tracing.csv","rb") as file_tracing:
             encoded =  base64.b64encode(file_tracing.read())
 
             att_tracing = self.env['ir.attachment'].sudo().create({
-                'db_datas': encoded,
-                'store_fname': 'archivo_tracing.csv',
-                'name':'archivo_tracing'
+                'datas': encoded,
+                'type': 'binary',
+                'mimetype': 'text/csv',
+                'store_fname': 'archivo_tracing.csv', 
+                'name':'archivo_tracing.csv'
             })
 
         mail_values = {
