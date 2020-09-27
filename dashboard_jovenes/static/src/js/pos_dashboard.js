@@ -251,15 +251,12 @@ var YoungDashboard = AbstractAction.extend({
 
     },
  //grafico de barras VERTICAL
-     onclick_pos_sales:function(){ //(events)
-        // var option = $(events.target).val();
-        // console.log('came monthly')
+     onclick_pos_sales:function(){
        var self = this
         var ctx = self.$(".other_graph");
             rpc.query({
                 model: "young.curriculum.vitae",
-                method: "get_other_graph", // get_department
-                //args: [option],
+                method: "get_other_graph", 
             }).then(function (arrays) {
             console.log(arrays)
           var data = {
@@ -362,10 +359,7 @@ var YoungDashboard = AbstractAction.extend({
 };
 
           //create Chart class object
-          if (window.myCharts != undefined)
-          window.myCharts.destroy();
           window.myCharts = new Chart(ctx, {
-//          var chart = new Chart(ctx, {
             type: "bar",
             data: data,
             options: options
@@ -613,9 +607,7 @@ var YoungDashboard = AbstractAction.extend({
         },
 
         
-        ultimo_grado:function(){ //(events)
-          // var option = $(events.target).val();
-          // console.log('came monthly')
+        ultimo_grado:function(){ 
          var self = this
           var ctx = self.$(".last_graph");
               rpc.query({
