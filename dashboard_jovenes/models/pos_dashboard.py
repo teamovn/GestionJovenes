@@ -259,6 +259,39 @@ class YoungDashboard(models.Model):
         final = [total, gender, label, total2]
         return final
 
+
+    @api.model
+    def get_ultimo_grado(self):
+        label = 'Detalle Ultimo Grado'
+
+        cr = self._cr
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender =  'male' """)
+        g1 = cr.fetchall()
+
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender =  'male' AND id in (select cv_id from young_insertion) """)
+        g11 = cr.fetchall()
+
+
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'female' """)
+        g2 = cr.fetchall()
+
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'female'  AND id in (select cv_id from young_insertion) """)
+        g22 = cr.fetchall()
+
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'other' """)
+        g3 = cr.fetchall()
+
+        cr.execute(""" select count(*) from young_curriculum_vitae where gender = 'other' AND id in (select cv_id from young_insertion) """)
+        g33 = cr.fetchall()
+
+        gender = ['Masculino','Femenino','Otro']
+
+        total = [g1[0][0],g2[0][0],g3[0][0]]
+
+        final = [total, gender, label]
+        return final
+
+
     @api.model
     def generate_mail(self):
         data_cv = []

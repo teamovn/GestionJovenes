@@ -104,6 +104,7 @@ var YoungDashboard = AbstractAction.extend({
          self.render_top_product_graph();
          self.render_product_category_graph();
          self.onclick_pos_sales();
+         self.ultimo_grado();
     },
 
 
@@ -337,11 +338,6 @@ var YoungDashboard = AbstractAction.extend({
                        display:false
                    }
                }]
-              /*yAxes: [{
-                ticks: {
-                  min: 0
-                }
-              }]*/
             },
             animation: {
   onComplete: function () {
@@ -363,25 +359,7 @@ var YoungDashboard = AbstractAction.extend({
 }
 
 
-            //Porcentage
-            /*animation: {
-              animateScale: true,
-              animateRotate: true
-            },
-            tooltips: {
-              callbacks: {
-                label: function(tooltipItem, data) {
-                  var dataset = data.datasets[tooltipItem.datasetIndex];
-                  var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-                    return previousValue + currentValue;
-                  });
-                  var currentValue = dataset.data[tooltipItem.index];
-                  var precentage = Math.floor(((currentValue/total) * 100)+0.5);
-                  return precentage + "%";
-                }
-              }
-            }*/
-          };
+};
 
           //create Chart class object
           if (window.myCharts != undefined)
@@ -633,6 +611,104 @@ var YoungDashboard = AbstractAction.extend({
 
         });
         },
+
+        
+        ultimo_grado:function(){ //(events)
+          // var option = $(events.target).val();
+          // console.log('came monthly')
+         var self = this
+          var ctx = self.$(".last_graph");
+              rpc.query({
+                  model: "young.curriculum.vitae",
+                  method: "get_ultimo_grado", // get_department
+                  //args: [option],
+              }).then(function (arrays) {
+              console.log(arrays)
+            var data = {
+              labels: arrays[1],
+              datasets: [
+                {
+                  label: arrays[2],
+                  data: arrays[0],
+                  backgroundColor: [
+                    "rgba(255, 99, 132,1)",
+                    "rgba(54, 162, 235,1)",
+                    "rgba(75, 192, 192,1)",
+                    "rgba(153, 102, 255,1)",
+                    "rgba(10,20,30,1)"
+                  ],
+                  borderColor: [
+                   "rgba(255, 99, 132, 0.2)",
+                    "rgba(54, 162, 235, 0.2)",
+                    "rgba(75, 192, 192, 0.2)",
+                    "rgba(153, 102, 255, 0.2)",
+                    "rgba(10,20,30,0.3)"
+                  ],
+                  borderWidth: 1
+                },
+              ]
+            };
+  
+    //options
+            var options = {
+              responsive: true,
+              title: {
+                display: true,
+                position: "top",
+                text: "Generos de los Jovenes",
+                fontSize: 18,
+                fontColor: "#111"
+              },
+              legend: {
+                display: true,
+                position: "bottom",
+                labels: {
+                  fontColor: "#333",
+                  fontSize: 16
+                }
+              },
+              //quitar las lineas de grafico
+              scales: {
+                xAxes: [{
+                     gridLines: {
+                         display:false
+                     }
+                 }],
+                yAxes: [{
+                     gridLines: {
+                         display:false
+                     }
+                 }]
+              },
+              animation: {
+    onComplete: function () {
+      var chartInstance = this.chart;
+      var ctx = chartInstance.ctx;
+      console.log(chartInstance);
+      var height = chartInstance.controller.boxes[0].bottom;
+      ctx.textAlign = "center";
+      Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+        var meta = chartInstance.controller.getDatasetMeta(i);
+        Chart.helpers.each(meta.data.forEach(function (bar, index) {
+          var Porcenta= dataset.data[index] *100 / 76
+          var Porcenta2=Porcenta.toFixed(2)
+          ctx.fillText(Porcenta2 +"%", bar._model.x, height - ((height - bar._model.y) / 2));
+          
+        }),this)
+      }),this);
+    }
+  }
+  
+  
+  };
+            window.myCharts = new Chart(ctx, {
+              type: "bar",
+              data: data,
+              options: options
+            });
+  
+          });
+          },
 });
 
 

@@ -142,13 +142,23 @@
                         <canvas class="top_product_categories" width="200" height="120"/>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-6  selling_product_graph_view">
+                <div class="col-sm-6 col-lg-6  other_graph_graph_view">
                     <div class="oh-card text-color">
                         <div class="oh-card-body pb-0">
                             <h4 class="mb-0">
                             </h4>
                         </div>
                         <canvas class="other_graph" width="200" height="120"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6  last_graph_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                        </div>
+                        <canvas class="last_graph" width="200" height="120"/>
                     </div>
                 </div>
             </div>
